@@ -197,6 +197,7 @@ class TrainingArguments(transformers.TrainingArguments):
     cache_dir: Optional[str] = field(default=None)
     optim: str = field(default="adamw_torch")
     num_gpus: int = field(default=1)
+    training_stage: int = field(default=1)
     remove_unused_columns: bool = field(default=False)
     freeze_mm_mlp_adapter: bool = field(default=False)
     force_fsdp: bool = field(default=False)
@@ -599,8 +600,16 @@ class LazySupervisedDataset(Dataset):
 
             pc_file = self.list_data_dict[i]['pc']
             if pc_file.endswith('.pt'):
-                pc_data = torch.load(os.path.join(self.pc_folder, pc_file))
-                pc_data = pc_data[:3,:].permute(1, 0).numpy().astype(np.float32)
+                # pc_data = torch.load(os.path.join(self.pc_folder, pc_file))
+                pc_data_name = f'{pc_file[:-3]}_{self.sample_points_num}'
+                try:
+                    pc_data = np.load(os.path.join(self.pc_folder, pc_file[:-3], pc_data_name + '.npz'))
+                except:
+                    # pc_data = np.load(os.path.join(self.pc_folder, pc_file[:-3], pc_data_name + '.npy'))
+                    assert('fail to load npz file !!!!!!!!!!!')
+
+                # pc_data = pc_data[:3,:].permute(1, 0).numpy().astype(np.float32)
+                pc_data = pc_data['arr_0']
             else:
                 pc_data = IO.get(os.path.join(self.pc_folder, pc_file)).astype(np.float32)
 
@@ -758,7 +767,8 @@ def train():
             cache_dir=training_args.cache_dir,
         )
     model.config.use_cache = False
-
+    import pdb
+    pdb.set_trace()
     if model_args.freeze_backbone:
         model.model.requires_grad_(False)
 

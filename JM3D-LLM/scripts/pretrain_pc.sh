@@ -1,13 +1,13 @@
 #!/bin/bash
 # Pretraining
 
-GPUs=3
+GPUs=6
 torchrun --nnodes=1 --nproc_per_node=$GPUs --master_port=25001 \
     llava/train/train_mem.py \
     --model_name_or_path ./backbones/vicuna-7b \
     --version v1 \
     --data_path ./data/Objaverse/pc_chat_Cap3D_660k.json \
-    --pc_folder ./data/Objaverse/Cap3D_pcs_pt \
+    --pc_folder /home/myw/haowei/ULIP/data/ULIP-Objaverse_triplets/objaverse_pc_parallel \
     --vision_tower ./backbones/pointmlp/pointmlp_backbone.pt \
     --tune_mm_mlp_adapter True \
     --bf16 True \

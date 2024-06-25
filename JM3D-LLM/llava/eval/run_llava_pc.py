@@ -183,11 +183,26 @@ def get_chunk(lst, n, k):
 
 def pc_processor(pc_file, pc_dataset):
     if pc_dataset == 'shapenet' or pc_dataset == 'objaverse':
-        if pc_file.endswith('.pt'):
-            pc_data = torch.load(os.path.join(pc_file))
-            pc_data = pc_data[:3,:].permute(1, 0).numpy().astype(np.float32)
-        else:
-            pc_data = IO.get(os.path.join(pc_file)).astype(np.float32)
+        # if pc_file.endswith('.pt'):
+        #     pc_data = torch.load(os.path.join(pc_file))
+        #     pc_data = pc_data[:3,:].permute(1, 0).numpy().astype(np.float32)
+        # else:
+        #     pc_data = IO.get(os.path.join(pc_file)).astype(np.float32)
+
+        pc_data = np.load(pc_file)['arr_0']
+        # if pc_file.endswith('.pt'):
+        #     # pc_data = torch.load(os.path.join(self.pc_folder, pc_file))
+        #     pc_data_name = f'{pc_file[:-3]}_8192'
+        #     try:
+        #         pc_data = np.load(os.path.join(self.pc_folder, pc_file[:-3], pc_data_name + '.npz'))
+        #     except:
+        #         # pc_data = np.load(os.path.join(self.pc_folder, pc_file[:-3], pc_data_name + '.npy'))
+        #         assert('fail to load npz file !!!!!!!!!!!')
+
+        #     # pc_data = pc_data[:3,:].permute(1, 0).numpy().astype(np.float32)
+        #     pc_data = pc_data['arr_0']
+        # else:
+        #     pc_data = IO.get(os.path.join(pc_file)).astype(np.float32)
 
 
         # print(pc_data.shape)
@@ -322,7 +337,8 @@ def eval_model(args):
     prompt = conv.get_prompt()
     
     while 1:
-        pc_file = './data/Objaverse/Cap3D_pcs_pt/' + input('Enter point cloud id: ') + '.pt'
+        # pc_file = './data/Objaverse/Cap3D_pcs_pt/' + input('Enter point cloud id: ') + '.pt'
+        pc_file = args.pc_file
         if pc_file == 'exit':
             break
         pc_tensor = pc_processor(pc_file, args.pc_dataset)
