@@ -2,7 +2,7 @@ import argparse
 import torch
 import torch.utils.data as data
 
-from llava.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN
+from llava.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_PATCH_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN
 from llava.conversation import conv_templates, SeparatorStyle
 from llava.model.builder import load_pretrained_model
 from llava.utils import disable_torch_init
@@ -189,7 +189,8 @@ def pc_processor(pc_file, pc_dataset):
         # else:
         #     pc_data = IO.get(os.path.join(pc_file)).astype(np.float32)
 
-        pc_data = np.load(pc_file)['arr_0']
+        # pc_data = np.load(pc_file)['arr_0']
+        pc_data = np.load(pc_file)
         # if pc_file.endswith('.pt'):
         #     # pc_data = torch.load(os.path.join(self.pc_folder, pc_file))
         #     pc_data_name = f'{pc_file[:-3]}_8192'
@@ -294,6 +295,7 @@ def eval_model(args):
     model_name = args.model_name
     print('model_name', model_name)
     tokenizer, model, image_processor, context_len = load_pretrained_model(args.model_path, args.model_base, model_name)
+    model.initialize_tokenizer_point_backbone_config_wo_embedding(tokenizer)    
     model.eval()
     # vision_tower = model.get_vision_tower()
     # vision_backbone = torch.load('backbones/pointmlp/pointmlp_backbone.pt', map_location='cpu')
@@ -313,9 +315,10 @@ def eval_model(args):
 
     qs = args.query
     if model.config.mm_use_im_start_end:
-        qs = DEFAULT_IM_START_TOKEN + DEFAULT_IMAGE_TOKEN + DEFAULT_IM_END_TOKEN + '\n' + qs
+        # qs = DEFAULT_IM_START_TOKEN + DEFAULT_IMAGE_TOKEN + DEFAULT_IM_END_TOKEN + '\n' + qs
+        qs = DEFAULT_IM_START_TOKEN + DEFAULT_IMAGE_PATCH_TOKEN + DEFAULT_IM_END_TOKEN + '\n' + qs
     else:
-        qs = DEFAULT_IMAGE_TOKEN + '\n' + qs
+        qs = DEFAULT_IMAGE_PATCH_TOKEN + '\n' + qs
 
     if 'llama-2' in model_name.lower():
         conv_mode = "llava_llama_2"

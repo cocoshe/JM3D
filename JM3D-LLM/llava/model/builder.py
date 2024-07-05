@@ -134,19 +134,19 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
         model.resize_token_embeddings(len(tokenizer))
 
         vision_tower = model.get_model().vision_tower
-        if vision_tower.device.type == 'meta':
-            # vision_tower = Model(points=1024, embed_dim=64, groups=1, res_expansion=1.0,
-            #     activation="relu", bias=False, use_xyz=False, normalize="anchor",
-            #     dim_expansion=[2, 2, 2, 2], pre_blocks=[2, 2, 2, 2], pos_blocks=[2, 2, 2, 2],
-            #     k_neighbors=[24, 24, 24, 24], reducers=[2, 2, 2, 2], ckpt_path='backbones/pointmlp/pointmlp_backbone.pt').cuda()
-            # model.get_model().vision_tower = vision_tower
-            pass
-        else:
-            import pdb
-            pdb.set_trace()
-            # NOTE: load the init weights when training stage 1
-            # vision_tower.load_model_from_ckpt('backbones/pointmlp/pointmlp_backbone.pt')
-            vision_tower = vision_tower.cuda()
+        # if vision_tower.device.type == 'meta':
+        #     vision_tower = Model(points=1024, embed_dim=64, groups=1, res_expansion=1.0,
+        #         activation="relu", bias=False, use_xyz=False, normalize="anchor",
+        #         dim_expansion=[2, 2, 2, 2], pre_blocks=[2, 2, 2, 2], pos_blocks=[2, 2, 2, 2],
+        #         k_neighbors=[24, 24, 24, 24], reducers=[2, 2, 2, 2], ckpt_path='backbones/pointmlp/pointmlp_backbone.pt').cuda()
+        #     model.get_model().vision_tower = vision_tower
+        # else:
+        #     import pdb
+        #     pdb.set_trace()
+        #     # NOTE: load the init weights when training stage 1
+        #     # vision_tower.load_model_from_ckpt('backbones/pointmlp/pointmlp_backbone.pt')
+        #     vision_tower = vision_tower.cuda()
+        vision_tower = vision_tower.cuda()
         
         try:
             mm_projector_weights = torch.load(os.path.join(model_path, 'mm_projector.bin'), map_location='cpu')

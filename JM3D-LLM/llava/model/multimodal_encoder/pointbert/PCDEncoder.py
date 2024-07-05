@@ -68,9 +68,9 @@ class PCDEncoder(nn.Module):
             "backbone_output_dim": point_bert_config.model.trans_dim if not use_max_pool else point_bert_config.model.trans_dim * 2,
             "project_output_dim": config.hidden_size,
             "point_token_len": point_bert_config.model.num_group + 1 if not use_max_pool else 1, # * number of output features, with cls token
-            "mm_use_point_start_end": config.mm_use_im_start_end,
+            "mm_use_im_start_end": config.mm_use_im_start_end,
             "projection_hidden_layer": point_bert_config.model.get('projection_hidden_layer', 0),
-            "use_max_pool": use_max_pool
+            "use_max_pool": use_max_pool,
         }
         if point_bert_config.model.get('projection_hidden_layer', 0) > 0:
             self.point_backbone_config["projection_hidden_dim"] = point_bert_config.model.projection_hidden_dim # a list

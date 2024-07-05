@@ -119,10 +119,10 @@ class LlavaLlamaModel(LlamaModel):
     def load_point_backbone_checkpoint(self, checkpoint_path=None):
         self.vision_tower.load_checkpoint(checkpoint_path)
 
-        # NOTE(coco): init mm_projector for testing!!
-        path = '/home/myw/wuchangli/yk/JM3D/JM3D-LLM/backbones/mm_projector/mm_projector_init.bin'
-        projector_st = torch.load(path, map_location='cpu')
-        self.mm_projector.load_state_dict(projector_st, strict=False)
+        # # NOTE(coco): init mm_projector for testing!!
+        # path = '/home/myw/wuchangli/yk/JM3D/JM3D-LLM/backbones/mm_projector/mm_projector_init.bin'
+        # projector_st = torch.load(path, map_location='cpu')
+        # self.mm_projector.load_state_dict(projector_st, strict=False)
 
 
 
@@ -191,8 +191,8 @@ class LlavaLlamaModel(LlamaModel):
         # inputs_embeds = torch.stack(new_input_embeds, dim=0)
 
         # return None, attention_mask, past_key_values, inputs_embeds, new_labels
-        import pdb
-        pdb.set_trace()
+        # import pdb
+        # pdb.set_trace()
         inputs_embeds = self.embed_tokens(input_ids)
         # import pdb
         # pdb.set_trace()
@@ -499,10 +499,10 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM):
         pcs: Optional[torch.FloatTensor] = None,
         return_dict: Optional[bool] = None,
     ) -> Union[Tuple, CausalLMOutputWithPast]:
-        print('-'*50)
-        print('input ids:')
-        print(input_ids)
-        print('-'*50)
+        # print('-'*50)
+        # print('input ids:')
+        # print(input_ids)
+        # print('-'*50)
 
 
         # import pdb
@@ -531,10 +531,10 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM):
         hidden_states = outputs[0]
         logits = self.lm_head(hidden_states)
 
-        logits_list.append(logits.detach().float().cpu().numpy())
-        if (len(logits_list) % 10 == 0):
-            import pdb
-            pdb.set_trace()
+        # logits_list.append(logits.detach().float().cpu().numpy())
+        # if (len(logits_list) % 10 == 0):
+        #     import pdb
+        #     pdb.set_trace()
         
         loss = None
         if labels is not None:
@@ -548,6 +548,7 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM):
             # Enable model/pipeline parallelism
             shift_labels = shift_labels.to(shift_logits.device)
             loss = loss_fct(shift_logits, shift_labels)
+
 
         if not return_dict:
             output = (logits,) + outputs[1:]

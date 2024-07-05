@@ -1,7 +1,7 @@
 #!/bin/bash
 # Pretraining
 
-GPUs=1
+GPUs=4
 torchrun --nnodes=1 --nproc_per_node=$GPUs --master_port=25001 \
     llava/train/train_mem.py \
     --model_name_or_path ./backbones/vicuna-7b \

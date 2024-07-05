@@ -39,7 +39,7 @@ import numpy as np
 
 # TODO: import and use code from ../data/dataset.py
 
-from llava.constants import DEFAULT_IMAGE_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IMAGE_PATCH_TOKEN, DEFAULT_IM_END_TOKEN, IGNORE_INDEX, DEFAULT_PAD_TOKEN, DEFAULT_EOS_TOKEN, DEFAULT_BOS_TOKEN, DEFAULT_UNK_TOKEN
+from llava.constants import IGNORE_INDEX, DEFAULT_PAD_TOKEN, DEFAULT_EOS_TOKEN, DEFAULT_BOS_TOKEN, DEFAULT_UNK_TOKEN
 # DEFAULT_IMAGE_PATCH_TOKEN = "<im_patch>"
 # DEFAULT_IM_START_TOKEN = "<im_start>"
 # DEFAULT_IM_END_TOKEN = "<im_end>"
@@ -877,7 +877,7 @@ class LazySupervisedDataset(Dataset):
     
     def __getitem__(self, index):
         sources = self.list_data_dict[index]
-        print(len(self.list_data_dict), sources)
+        # print(len(self.list_data_dict), sources)
         if isinstance(index, int):
             sources = [sources]
         assert len(sources) == 1, "sources should be a list"
@@ -1200,11 +1200,11 @@ def train():
             # * stage2
             model.initialize_tokenizer_point_backbone_config_wo_embedding(tokenizer=tokenizer) 
 
-        ## NOTE(coco): For testing, remember to delete it!
-        added_token_embs = torch.load('/home/myw/wuchangli/yk/JM3D/JM3D-LLM/added_3_token_embs.pt', map_location='cpu')
-        model.model.embed_tokens.weight.data[-3:] = added_token_embs
-        model.lm_head.weight.data[-3:] = added_token_embs
-        ################################################################
+        # ## NOTE(coco): For testing, remember to delete it!
+        # added_token_embs = torch.load('/home/myw/wuchangli/yk/JM3D/JM3D-LLM/added_3_token_embs.pt', map_location='cpu')
+        # model.model.embed_tokens.weight.data[-3:] = added_token_embs
+        # model.lm_head.weight.data[-3:] = added_token_embs
+        # ################################################################
 
         params_no_grad = [n for n, p in model.named_parameters() if not p.requires_grad]
 

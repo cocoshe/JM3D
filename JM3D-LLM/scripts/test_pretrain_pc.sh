@@ -17,10 +17,14 @@ PROMPT_VERSION=plain
 #     --pc_dataset objaverse \
 #     --query "Relay a brief, clear account of the point cloud shown."
 
+
+# MODEL_PATH='./checkpoints/llava-lightning-7b-objaverse-pretrain-no3Dword-nofreeze_vis_backbone'
+MODEL_PATH='./checkpoints/yk_test_ckpt'
+PC_FILE='/home/myw/wuchangli/yk/JM3D/JM3D-LLM/data/objaverse_data/4887da0aab51406dab3c5cb69ec82404_8192.npy'
 CUDA_VISIBLE_DEVICES=3 \
 python llava/eval/run_llava_pc.py \
-    --model_path ./checkpoints/llava-lightning-7b-objaverse-pretrain-no3Dword-nofreeze_vis_backbone \
-    --pc_file /home/myw/haowei/ULIP/data/ULIP-Objaverse_triplets/objaverse_pc_parallel/4887da0aab51406dab3c5cb69ec82404/4887da0aab51406dab3c5cb69ec82404_8192.npz \
+    --model_path $MODEL_PATH \
+    --pc_file $PC_FILE \
     --pc_dataset objaverse \
     --query "What is it?"
 
