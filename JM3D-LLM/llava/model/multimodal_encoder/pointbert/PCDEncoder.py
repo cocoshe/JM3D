@@ -129,7 +129,6 @@ class PCDEncoder(nn.Module):
         # with torch.no_grad() if self.fix_pointnet else nullcontext():
         #     if self.fix_pointnet:
         #         self.point_backbone.eval()
-
         self.point_backbone.eval()
         if type(pcs) is list:
             # * variable numbers of points

@@ -119,10 +119,10 @@ class LlavaLlamaModel(LlamaModel):
     def load_point_backbone_checkpoint(self, checkpoint_path=None):
         self.vision_tower.load_checkpoint(checkpoint_path)
 
-        # # NOTE(coco): init mm_projector for testing!!
-        # path = '/home/myw/wuchangli/yk/JM3D/JM3D-LLM/backbones/mm_projector/mm_projector_init.bin'
-        # projector_st = torch.load(path, map_location='cpu')
-        # self.mm_projector.load_state_dict(projector_st, strict=False)
+        # NOTE(coco): init mm_projector for testing!!
+        path = '/home/myw/wuchangli/yk/JM3D/JM3D-LLM/backbones/mm_projector/mm_projector_init.bin'
+        projector_st = torch.load(path, map_location='cpu')
+        self.mm_projector.load_state_dict(projector_st, strict=False)
 
 
 
@@ -476,6 +476,8 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM):
 
     def __init__(self, config):
         super(LlamaForCausalLM, self).__init__(config)
+        import pdb
+        pdb.set_trace()
         self.model = LlavaLlamaModel(config)
 
         self.lm_head = nn.Linear(config.hidden_size, config.vocab_size, bias=False)

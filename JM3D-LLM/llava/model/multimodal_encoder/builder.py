@@ -19,7 +19,6 @@ def build_vision_tower(config):
     # vision_tower = pointMLP()
     # if kwargs['multi_token']: print('Using multi-token visual embeddings!!!!!!!')
     # print('vision_tower_cfg', vision_tower_cfg)
-
     return PCDEncoder(config)
 
 
