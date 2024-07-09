@@ -17,7 +17,8 @@ dependencies = [
     "requests", "sentencepiece", "tokenizers==0.12.1",
     "torch", "torchvision", "uvicorn", "wandb", "h5py", 
     "open3d", "plyfile", "timm", "termcolor", "easydict",
-    "transformers==4.40.2"
+    "transformers==4.40.2", "nltk", "rouge", "sentence_transformers",
+    "openai==0.28.1"
 ]
 
 [project.urls]

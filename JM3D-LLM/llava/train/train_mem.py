@@ -11,9 +11,19 @@ from llava.train.train import train
 
 import wandb
 import os
+# wandb.init(
+#     project="JM3D_refactor",
+#     name='jm3d_stage1_rank_' + os.environ['LOCAL_RANK'],
+# )
+
+# wandb.init(
+#     project="JM3D_refactor",
+#     name='jm3d_stage2_rank_' + os.environ['LOCAL_RANK'],
+# )
+
 wandb.init(
     project="JM3D_refactor",
-    name='jm3d_stage1_rank_' + os.environ['LOCAL_RANK'],
+    name='jm3d_stage3_rank_' + os.environ['LOCAL_RANK'],
 )
 
 if __name__ == "__main__":
