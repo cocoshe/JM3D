@@ -1068,6 +1068,7 @@ def train():
 
     # if model_args.freeze_backbone:
     #     model.model.requires_grad_(False)
+    model.get_model().vision_tower.requires_grad_(False)
     if training_args.training_stage == 1:
         # * This will fix all the parameters
         print("LLM is fixed. Fix_llm flag is set to True")
@@ -1075,7 +1076,7 @@ def train():
         model.requires_grad_(False)
         # model.get_model().fix_llm = True
         model.get_model().mm_projector.requires_grad_(True) 
-        model.get_model().vision_tower.requires_grad_(False)
+        # model.get_model().vision_tower.requires_grad_(False)
         # model.get_model().vision_tower.requires_grad_(True) # * set as True for fsdp, use fix_pointnet flag to control
         # model.get_model().vision_tower.requires_grad_(False) # * set as True for fsdp, use fix_pointnet flag to control
     else:
