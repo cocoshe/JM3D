@@ -1200,11 +1200,6 @@ def train():
             # * stage2
             model.initialize_tokenizer_point_backbone_config_wo_embedding(tokenizer=tokenizer) 
 
-        # ## NOTE(coco): For testing, remember to delete it!
-        # added_token_embs = torch.load('/home/myw/wuchangli/yk/JM3D/JM3D-LLM/added_3_token_embs.pt', map_location='cpu')
-        # model.model.embed_tokens.weight.data[-3:] = added_token_embs
-        # model.lm_head.weight.data[-3:] = added_token_embs
-        # ################################################################
 
         params_no_grad = [n for n, p in model.named_parameters() if not p.requires_grad]
 

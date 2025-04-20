@@ -10,7 +10,7 @@ torchrun --nnodes=1 --nproc_per_node=$GPUs --master_port=25001 \
     --anno_path data/anno_data/PointLLM_brief_description_660K_filtered.json \
     --vision_tower /home/myw/haowei/v1.1_pointbert_replace.pt \
     --bf16 True \
-    --output_dir ./checkpoints/yk_test_ckpt \
+    --output_dir ./checkpoints/stage1_ckpt \
     --num_train_epochs 3 \
     --num_gpus $GPUs \
     --per_device_train_batch_size 16 \

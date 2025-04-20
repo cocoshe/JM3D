@@ -119,12 +119,6 @@ class LlavaLlamaModel(LlamaModel):
     def load_point_backbone_checkpoint(self, checkpoint_path=None):
         self.vision_tower.load_checkpoint(checkpoint_path)
 
-        # # NOTE(coco): init mm_projector for testing!!
-        # path = '/home/myw/wuchangli/yk/JM3D/JM3D-LLM/backbones/mm_projector/mm_projector_init.bin'
-        # projector_st = torch.load(path, map_location='cpu')
-        # self.mm_projector.load_state_dict(projector_st, strict=False)
-
-
 
     def prepare_inputs_labels_for_multimodal(
         # self, input_ids, attention_mask, past_key_values, labels, images

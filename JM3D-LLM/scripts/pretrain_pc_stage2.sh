@@ -7,11 +7,11 @@ point_backbone_ckpt=/home/myw/haowei/v1.1_pointbert_replace.pt
 # point_backbone_ckpt=/home/myw/wuchangli/PointLLM/checkpoints/PointLLM_7B_v1.1_init/point_bert_v1.1_noisy_1_10.pt
 
 # dir_path=PointLLM
-model_name_or_path=checkpoints/yk_test_ckpt_backup
+model_name_or_path=checkpoints/stage1_ckpt
 data_path=data/objaverse_data
 # anno_path=data/anno_data/PointLLM_brief_description_660K_filtered.json # or PointLLM_brief_description_660K.json (including val sets)
 anno_path_stage2=data/anno_data/PointLLM_complex_instruction_70K.json
-output_dir_stage2=checkpoints/yk_test_ckpt_stage2
+output_dir_stage2=checkpoints/stage2_ckpt
 # point_backbone_ckpt=$model_name_or_path/point_bert_v1.2.pt
 # point_backbone_ckpt=/data/haowei/pretrained_models_ckpt_zero-sho_classification_pointbert_ULIP-2.pt
 

@@ -12,8 +12,8 @@ data_path=data/objaverse_data
 # anno_path=data/anno_data/PointLLM_brief_description_660K_filtered.json # or PointLLM_brief_description_660K.json (including val sets)
 # anno_path_stage2=data/anno_data/PointLLM_complex_instruction_70K.json
 anno_path_stage3=data/anno_data/pc_chat_Cap3D_660k_v2.json
-output_dir_stage2=checkpoints/yk_test_ckpt_stage2
-output_dir_stage3=checkpoints/yk_test_ckpt_stage3
+output_dir_stage2=checkpoints/stage2_ckpt
+output_dir_stage3=checkpoints/stage3_ckpt
 # point_backbone_ckpt=$model_name_or_path/point_bert_v1.2.pt
 # point_backbone_ckpt=/data/haowei/pretrained_models_ckpt_zero-sho_classification_pointbert_ULIP-2.pt
 
